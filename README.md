@@ -1,0 +1,2 @@
+# kalipwn
+Preconfigured Kali Dockerfile
