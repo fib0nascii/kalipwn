@@ -18,8 +18,7 @@ RUN apt install -y man-db
 RUN apt install -y apparmor rkhunter
 
 # Install tools
-RUN apt install -y gobuster \
-    cupp
+RUN apt install -y gobuster cupp mongodb rustup rsync ip-utils
 
 # Setup neovim
 RUN apt install -y neovim
