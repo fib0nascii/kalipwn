@@ -1,0 +1,2 @@
+# deb [arch=amd64 signed-by=/usr/share/keyrings/postgres-bookworm.gpg]  https://ftp.postgresql.org/pub/pgadmin/pgadmin4/apt/bionic pg4admin main
+deb https://ftp.postgresql.org/pub/pgadmin/pgadmin4/apt/focal pgadmin4 main
