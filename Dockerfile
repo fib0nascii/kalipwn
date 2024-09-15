@@ -9,7 +9,7 @@ ENV DEBIAN_FRONTEND noninteractive
 
 WORKDIR /app
 
-RUN apt update -y && apt install gpg ca-certificates curl -y
+RUN apt update -y && apt install gpg ca-certificates curl git -y
 
 FROM base as psqlSTAGE
 RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 7FCC7D46ACCC4CF8
@@ -40,6 +40,14 @@ RUN apt install -y apparmor rkhunter
 # Install tools
 RUN apt install -y gobuster cupp mongodb rustup rsync iputils-ping dirbuster \
     hydra
+
+# Add Impacket Here
+
+# Add WinPEASS here
+
+# Add webshells here - github.com/blackarch/webshells
+
+# Add php-reverse-shell.php here
 
 # Setup neovim
 RUN apt install -y neovim

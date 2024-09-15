@@ -1,0 +1,68 @@
+#!/bin/bash
+
+# Function to start the container
+start_container() {
+  docker start zen_blackburn
+  echo "Container zen_blackburn started."
+}
+
+# Function to stop the container
+stop_container() {
+  docker stop zen_blackburn
+  echo "Container zen_blackburn stopped."
+}
+
+# Function to execute a bash shell in the container
+exec_container() {
+  docker exec -it zen_blackburn /bin/bash
+}
+
+# Function to backup the volume
+backup_volume() {
+  echo "Backing up volume..."
+  docker run --rm -v zen_volume:/volume -v /mnt/zen:/backup busybox tar cvf /backup/backup.tar /volume
+  echo "Volume backup completed."
+}
+
+# Function to restore the volume
+restore_volume() {
+  echo "Restoring volume..."
+  docker run --rm -v zen_volume:/volume -v /mnt/zen:/backup busybox tar xvf /backup/backup.tar -C /volume
+  echo "Volume restore completed."
+}
+
+# Function to setup the container with kalipwn image
+setup_container() {
+  echo "Setting up container with kalipwn image..."
+  docker stop zen_blackburn
+  docker rm zen_blackburn
+  sudo chown -R $(whoami):$(whoami) /mnt/zen
+  docker run -d --name zen_blackburn -v /mnt/zen:/app kalipwn tail -f /dev/null
+  echo "Container zen_blackburn set up with kalipwn image and volume mount."
+}
+
+# Check the command argument
+case "$1" in
+  start)
+    start_container
+    ;;
+  stop)
+    stop_container
+    ;;
+  exec)
+    exec_container
+    ;;
+  backup)
+    backup_volume
+    ;;
+  restore)
+    restore_volume
+    ;;
+  setup)
+    setup_container
+    ;;
+  *)
+    echo "Usage: zen {start|stop|exec|backup|restore|setup}"
+    exit 1
+    ;;
+esac
